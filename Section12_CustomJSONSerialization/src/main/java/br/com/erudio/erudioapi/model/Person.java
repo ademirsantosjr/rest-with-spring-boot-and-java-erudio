@@ -1,26 +1,30 @@
-package br.com.erudio.erudioapi.data.vo.v1;
+package br.com.erudio.erudioapi.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
-@JsonPropertyOrder({"id", "first_name", "last_name", "address", "gender"})
-public class PersonDto implements Serializable {
+@Entity
+@Table(name = "persons")
+public class Person implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @JsonProperty("first_name")
+    @Column(nullable = false, length = 80)
     private String firstName;
-    @JsonProperty("last_name")
+    @Column(nullable = false, length = 80)
     private String lastName;
+    @Column(nullable = false, length = 100)
     private String address;
+    @Column(nullable = false, length = 6)
     private String gender;
 
-    public PersonDto() {
+    public Person() {
     }
 
     public Long getId() {
@@ -67,7 +71,7 @@ public class PersonDto implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PersonDto person = (PersonDto) o;
+        Person person = (Person) o;
         return Objects.equals(id, person.id) &&
                 Objects.equals(firstName, person.firstName) &&
                 Objects.equals(lastName, person.lastName) &&
