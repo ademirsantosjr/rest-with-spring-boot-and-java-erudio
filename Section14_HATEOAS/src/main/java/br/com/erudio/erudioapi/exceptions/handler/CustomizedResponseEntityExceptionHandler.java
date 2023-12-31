@@ -1,6 +1,7 @@
 package br.com.erudio.erudioapi.exceptions.handler;
 
 import br.com.erudio.erudioapi.exceptions.ExceptionResponse;
+import br.com.erudio.erudioapi.exceptions.RequiredObjectNullException;
 import br.com.erudio.erudioapi.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,8 @@ import java.util.Date;
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public final ResponseEntity<ExceptionResponse> handleExceptions(Exception ex,
-                                                                    WebRequest request) {
+    public final ResponseEntity<ExceptionResponse> handleInternalErrorExceptions(Exception ex,
+                                                                                 WebRequest request) {
         ExceptionResponse exceptionResponse =
                 new ExceptionResponse(
                         new Date(),
@@ -30,7 +31,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public final ResponseEntity<ExceptionResponse> handleNoFoundExceptions(Exception ex,
+    public final ResponseEntity<ExceptionResponse> handleNotFoundExceptions(Exception ex,
                                                                            WebRequest request) {
         ExceptionResponse exceptionResponse =
                 new ExceptionResponse(
@@ -40,5 +41,18 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
                 );
 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(RequiredObjectNullException.class)
+    public final ResponseEntity<ExceptionResponse> handleBadRequestExceptions(Exception ex,
+                                                                              WebRequest request) {
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(
+                        new Date(),
+                        ex.getMessage(),
+                        request.getDescription(false)
+                );
+
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 }

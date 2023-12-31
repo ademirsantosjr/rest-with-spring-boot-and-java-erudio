@@ -15,10 +15,15 @@ public interface PersonMapper {
 
     PersonMapper INSTANCE = Mappers.getMapper(PersonMapper.class );
 
+    @Mapping(target = "key", source = "id")
     PersonDto toPersonDto(Person person);
+
+    @Mapping(target = "id", source = "key")
     Person toPerson(PersonDto personDto);
+
     @Mapping(target = "birthDay", expression = "java(new java.util.Date())")
     PersonDtoV2 toPersonDtoV2(Person person);
+
     Person toPerson(PersonDtoV2 personDtoV2);
 
 }

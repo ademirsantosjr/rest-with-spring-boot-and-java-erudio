@@ -1,4 +1,4 @@
-package br.com.erudio.erudioapi.unittests.mocks;
+package br.com.erudio.erudioapi.mocks;
 
 import br.com.erudio.erudioapi.data.vo.v1.PersonDto;
 import br.com.erudio.erudioapi.model.Person;
@@ -12,8 +12,8 @@ public class MockPerson {
         return mockEntity(0);
     }
 
-    public PersonDto mockVO() {
-        return mockVO(0);
+    public PersonDto mockDto() {
+        return mockDto(0);
     }
 
     public List<Person> mockEntityList() {
@@ -24,10 +24,10 @@ public class MockPerson {
         return persons;
     }
 
-    public List<PersonDto> mockVOList() {
+    public List<PersonDto> mockDtoList() {
         List<PersonDto> personsDtos = new ArrayList<>();
         for (int i = 0; i < 14; i++) {
-            personsDtos.add(mockVO(i));
+            personsDtos.add(mockDto(i));
         }
         return personsDtos;
     }
@@ -43,13 +43,13 @@ public class MockPerson {
         return person;
     }
 
-    public PersonDto mockVO(Integer number) {
+    public PersonDto mockDto(Integer number) {
         PersonDto personDto = new PersonDto();
         personDto.setAddress("Address Test " + number);
         personDto.setFirstName("First Name Test " + number);
         personDto.setLastName("Last Name Test " + number);
         personDto.setGender(((number % 2) == 0) ? "Male" : "Female");
-        personDto.setId(number.longValue());
+        personDto.setKey(number.longValue());
         personDto.setLastName("Last Name Test " + number);
         return personDto;
     }
