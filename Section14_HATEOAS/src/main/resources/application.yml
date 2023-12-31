@@ -6,7 +6,7 @@ spring:
       password: root
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       show-sql: false
     open-in-view: false
