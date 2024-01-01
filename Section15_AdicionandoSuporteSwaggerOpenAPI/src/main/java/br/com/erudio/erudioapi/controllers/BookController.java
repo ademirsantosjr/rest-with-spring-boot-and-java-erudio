@@ -1,8 +1,7 @@
 package br.com.erudio.erudioapi.controllers;
 
-import br.com.erudio.erudioapi.data.vo.v1.PersonDto;
-import br.com.erudio.erudioapi.data.vo.v2.PersonDtoV2;
-import br.com.erudio.erudioapi.service.PersonService;
+import br.com.erudio.erudioapi.data.vo.v1.BookDto;
+import br.com.erudio.erudioapi.service.BookService;
 import br.com.erudio.erudioapi.util.MediaTypeCustom;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -17,12 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/persons")
-@Tag(name = "Persons", description = "Endpoint for managing persons")
-public class PersonController {
+@RequestMapping("/api/books")
+@Tag(name = "Books", description = "Endpoint for managing books")
+public class BookController {
 
     @Autowired
-    private PersonService service;
+    private BookService bookService;
 
     @GetMapping(
             produces = {
@@ -32,9 +31,9 @@ public class PersonController {
             }
     )
     @Operation(
-            summary = "Find all persons",
-            description = "List all registered persons in JSON, XML or YAML formats",
-            tags = {"Persons"},
+            summary = "Find all books",
+            description = "List all registered books in JSON, XML or YAML formats",
+            tags = {"Books"},
             responses = {
                     @ApiResponse(
                             description = "Success",
@@ -43,7 +42,7 @@ public class PersonController {
                                     @Content(
                                             mediaType = "application/json",
                                             array = @ArraySchema(
-                                                    schema = @Schema(implementation = PersonDto.class)
+                                                    schema = @Schema(implementation = BookDto.class)
                                             )
                                     )
                             }
@@ -54,8 +53,8 @@ public class PersonController {
                     @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content),
             }
     )
-    public List<PersonDto> findAll() {
-        return service.findAll();
+    public List<BookDto> findAll() {
+        return bookService.findAll();
     }
 
     @GetMapping(
@@ -67,14 +66,14 @@ public class PersonController {
             }
     )
     @Operation(
-            summary = "Find a person by id",
-            description = "Find a person by its id in JSON, XML or YAML formats.",
-            tags = {"Persons"},
+            summary = "Find a book by id",
+            description = "Find a book by its id in JSON, XML or YAML formats.",
+            tags = {"Books"},
             responses = {
                     @ApiResponse(
                             description = "Success",
                             responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = PersonDto.class))
+                            content = @Content(schema = @Schema(implementation = BookDto.class))
                     ),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -83,8 +82,8 @@ public class PersonController {
                     @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content),
             }
     )
-    public PersonDto findById(@PathVariable(value = "id") Long id) {
-        return service.findById(id);
+    public BookDto findById(@PathVariable(value = "id") Long id) {
+        return bookService.findById(id);
     }
 
     @PostMapping(
@@ -100,54 +99,22 @@ public class PersonController {
             }
     )
     @Operation(
-            summary = "Save a person",
-            description = "Save a person in JSON, XML or YAML formats.",
-            tags = {"Persons"},
+            summary = "Save a book",
+            description = "Save a book in JSON, XML or YAML formats.",
+            tags = {"Books"},
             responses = {
                     @ApiResponse(
                             description = "Success",
                             responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = PersonDto.class))
+                            content = @Content(schema = @Schema(implementation = BookDto.class))
                     ),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content),
             }
     )
-    public PersonDto create(@RequestBody PersonDto personDto) {
-        return service.create(personDto);
-    }
-
-    @PostMapping(
-            value = "/v2",
-            consumes = {
-                MediaTypeCustom.APPLICATION_JSON,
-                MediaTypeCustom.APPLICATION_XML,
-                MediaTypeCustom.APPLICATION_YAML
-            },
-            produces = {
-                MediaTypeCustom.APPLICATION_JSON,
-                MediaTypeCustom.APPLICATION_XML,
-                MediaTypeCustom.APPLICATION_YAML
-            }
-    )
-    @Operation(
-            summary = "Save a person",
-            description = "Save a person in JSON, XML or YAML formats.",
-            tags = {"Persons"},
-            responses = {
-                    @ApiResponse(
-                            description = "Success",
-                            responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = PersonDtoV2.class))
-                    ),
-                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-                    @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content),
-            }
-    )
-    public PersonDtoV2 createV2(@RequestBody PersonDtoV2 personDtoV2) {
-        return service.createV2(personDtoV2);
+    public BookDto create(@RequestBody BookDto bookDto) {
+        return bookService.create(bookDto);
     }
 
     @PutMapping(
@@ -163,14 +130,14 @@ public class PersonController {
             }
     )
     @Operation(
-            summary = "Update a person",
-            description = "Update a person consuming and producing JSON, XML or YAML media types.",
-            tags = {"Persons"},
+            summary = "Update a book",
+            description = "Update a book consuming and producing JSON, XML or YAML media types.",
+            tags = {"Books"},
             responses = {
                     @ApiResponse(
                             description = "Success",
                             responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = PersonDtoV2.class))
+                            content = @Content(schema = @Schema(implementation = BookDto.class))
                     ),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
@@ -178,8 +145,8 @@ public class PersonController {
                     @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content),
             }
     )
-    public PersonDto udpate(@RequestBody PersonDto personDto) {
-        return service.update(personDto);
+    public BookDto udpate(@RequestBody BookDto bookDto) {
+        return bookService.update(bookDto);
     }
 
     @DeleteMapping(
@@ -191,9 +158,9 @@ public class PersonController {
             }
     )
     @Operation(
-            summary = "Delete a person",
-            description = "Delete a person by its id producing JSON, XML or YAML media types.",
-            tags = {"Persons"},
+            summary = "Delete a book",
+            description = "Delete a book by its id producing JSON, XML or YAML media types.",
+            tags = {"Books"},
             responses = {
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content()),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -203,7 +170,7 @@ public class PersonController {
             }
     )
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
-        service.deleteById(id);
+        bookService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

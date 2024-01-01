@@ -52,7 +52,7 @@ public class PersonServiceTest {
         assertNotNull(foundPersonDto.getKey());
         assertNotNull(foundPersonDto.getLinks());
 
-        assertTrue(foundPersonDto.toString().contains("links: [</persons/1>;rel=\"self\"]"));
+        assertTrue(foundPersonDto.toString().contains("links: [</api/persons/1>;rel=\"self\"]"));
 
         assertEquals("First Name Test 1", foundPersonDto.getFirstName());
         assertEquals("Last Name Test 1", foundPersonDto.getLastName());
@@ -78,7 +78,7 @@ public class PersonServiceTest {
         assertNotNull(newPersonDto.getKey());
         assertNotNull(newPersonDto.getLinks());
 
-        assertTrue(newPersonDto.toString().contains("links: [</persons/1>;rel=\"self\"]"));
+        assertTrue(newPersonDto.toString().contains("links: [</api/persons/1>;rel=\"self\"]"));
 
         assertEquals("First Name Test 1", newPersonDto.getFirstName());
         assertEquals("Last Name Test 1", newPersonDto.getLastName());
@@ -117,7 +117,7 @@ public class PersonServiceTest {
         assertNotNull(updatedPersonDto.getKey());
         assertNotNull(updatedPersonDto.getLinks());
 
-        assertTrue(updatedPersonDto.toString().contains("links: [</persons/1>;rel=\"self\"]"));
+        assertTrue(updatedPersonDto.toString().contains("links: [</api/persons/1>;rel=\"self\"]"));
 
         assertEquals("First Name Test 1", updatedPersonDto.getFirstName());
         assertEquals("Last Name Test 1", updatedPersonDto.getLastName());
