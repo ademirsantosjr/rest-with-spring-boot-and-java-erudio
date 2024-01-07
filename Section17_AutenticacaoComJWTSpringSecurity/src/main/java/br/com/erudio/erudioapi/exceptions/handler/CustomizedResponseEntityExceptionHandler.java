@@ -1,7 +1,6 @@
 package br.com.erudio.erudioapi.exceptions.handler;
 
 import br.com.erudio.erudioapi.exceptions.ExceptionResponse;
-import br.com.erudio.erudioapi.exceptions.InvalidJwtAuthenticationException;
 import br.com.erudio.erudioapi.exceptions.RequiredObjectNullException;
 import br.com.erudio.erudioapi.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -55,18 +54,5 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
                 );
 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(InvalidJwtAuthenticationException.class)
-    public final ResponseEntity<ExceptionResponse> handleForbiddenExceptions(Exception ex,
-                                                                             WebRequest request) {
-        ExceptionResponse exceptionResponse =
-                new ExceptionResponse(
-                        new Date(),
-                        ex.getMessage(),
-                        request.getDescription(false)
-                );
-
-        return new ResponseEntity<>(exceptionResponse, HttpStatus.FORBIDDEN);
     }
 }
